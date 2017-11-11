@@ -4,11 +4,29 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
+	"time"
 )
 
 func main() {
 
+	rand.Seed(time.Now().UTC().UnixNano()) //generate a different responseStrings
+
+	fmt.Println("People say I look like both my mother and my father")
+	fmt.Println(ElizaResponse("People say I look like both my mother and my father"))
+
+	fmt.Println("\nFather was a teacher.")
+	fmt.Println(ElizaResponse("Father was a teacher."))
+
+	fmt.Println("\nI was my father’s favourite.")
+	fmt.Println(ElizaResponse("I was my father’s favourite."))
+
+	fmt.Println("\nI'm looking forward to the weekend.")
+	fmt.Println(ElizaResponse("I'm looking forward to the weekend."))
+
+	fmt.Println("\nMy grandfather was French!")
+	fmt.Println(ElizaResponse("My grandfather was French!"))
 }
 
 var responseStrings = []string{ //hardcode given responses
