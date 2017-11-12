@@ -30,6 +30,18 @@ func main() {
 
 	fmt.Println("\nMy grandfather was French!")
 	fmt.Println(elizaResponse("My grandfather was French!"))
+
+	fmt.Println("\nI am happy.")
+	fmt.Println(elizaResponse("I am happy."))
+
+	fmt.Println("\nI am not happy with your responses.")
+	fmt.Println(elizaResponse("I am not happy with your responses."))
+
+	fmt.Println("\nI am not sure that you understand the effect that your questions are having on me.")
+	fmt.Println(elizaResponse("I am not sure that you understand the effect that your questions are having on me."))
+
+	fmt.Println("\nI am supposed to just take what you're saying at face value?")
+	fmt.Println(elizaResponse("I am supposed to just take what you're saying at face value?"))
 }
 
 var responseStrings = []string{ //hardcoded given responses
@@ -38,13 +50,22 @@ var responseStrings = []string{ //hardcoded given responses
 	"Why do you say that?",
 }
 
-func elizaResponse(input string) string { //input string of type string
+func elizaResponse(userInput string) string { //input string of type string
 
-	rex := regexp.MustCompile("(?i)\\bfather\\b") //i=case insensitive
+	rex := regexp.MustCompile("(?i)\\bfather\\b") //i=case insensitive,(?i):match remainder of pattern with i
 
-	if len(rex.FindStringIndex(input)) > 0 {
+	if rex.MatchString(userInput) { //if exists
 		return "Why don't you tell me some more about your Father?"
 	}
 
+	rex = regexp.MustCompile("(?i)i am (.*)") //i=case insensitive,(?i):match remainder of pattern with i
+
+	found := rex.FindStringSubmatch(userInput)
+
+	if len(found) > 1 {
+		responseStrings := "How do you know that you are %s?"
+
+		return fmt.Sprintf(responseStrings, found[1])
+	}
 	return responseStrings[rand.Intn(len(responseStrings))]
 }
