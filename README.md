@@ -7,7 +7,7 @@ This repository contains my first Ten solutions to excercise sheet 1. This probl
 
 ## Contents
 
-The Ten programs are
+The six programs are
 1. Random Response
 2. Recognise "father"
 3. Capture "I am"
