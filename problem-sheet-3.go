@@ -31,16 +31,16 @@ func main() {
 	fmt.Println("\nMy grandfather was French!")
 	fmt.Println(elizaResponse("My grandfather was French!"))
 
-	fmt.Println("\nI am happy.")
+	fmt.Println("\nIm happy.")
 	fmt.Println(elizaResponse("I am happy."))
 
 	fmt.Println("\nI am not happy with your responses.")
 	fmt.Println(elizaResponse("I am not happy with your responses."))
 
-	fmt.Println("\nI am not sure that you understand the effect that your questions are having on me.")
+	fmt.Println("\nI'm not sure that you understand the effect that your questions are having on me.")
 	fmt.Println(elizaResponse("I am not sure that you understand the effect that your questions are having on me."))
 
-	fmt.Println("\nI am supposed to just take what you're saying at face value?")
+	fmt.Println("\ni am supposed to just take what you're saying at face value?")
 	fmt.Println(elizaResponse("I am supposed to just take what you're saying at face value?"))
 }
 
@@ -58,7 +58,16 @@ func elizaResponse(userInput string) string { //input string of type string
 		return "Why don't you tell me some more about your Father?"
 	}
 
-	rex = regexp.MustCompile("(?i)i am (.*)") //i=case insensitive,(?i):match remainder of pattern with i
+	//this regex is to accomodate different ways of saying "I am"
+	//1st capture: the ` is instead of ", (?i)matches remainder of pattern with i
+	//modifier:case insensitive. The 2nd i is a literal character match and
+	//again either case.(?:'|\sa)? is a non-capturing group. the ? match between 0-1
+	//times, as many as possible, giving back as needed(greedily) The ' is any ', eg I'm
+	//\s matches any whitespace. a is literal character, as is m. the 2nd capture (.*):
+	//.*matches any character except full stops.
+	//g modifier: all matches ie. not just 1st match
+
+	rex = regexp.MustCompile(`(?i)i(?:'|\sa)?m (.*)`) //i=case insensitive,(?i):match remainder of pattern with i
 
 	found := rex.FindStringSubmatch(userInput)
 
