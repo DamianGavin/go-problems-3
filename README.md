@@ -3,7 +3,7 @@ assignmentSheet3_GO
 
 ## Synopsis
 
-This repository contains my first Ten solutions to excercise sheet 1. This problem sheet was to be completed using the **Go** programming language.
+This repository contains six solutions to excercise sheet 3. This problem sheet was to be completed using the **Go** programming language.
 
 ## Contents
 
