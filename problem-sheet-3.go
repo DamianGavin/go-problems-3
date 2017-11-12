@@ -2,6 +2,7 @@
 //Damian Gavin 11/11/17
 //regex helped by https://stackoverflow.com/questions/9348326/regex-find-word-in-the-string
 //and https://regex101.com/
+// https://www.smallsurething.com/implementing-the-famous-eliza-chatbot-in-python/
 
 package main
 
@@ -9,8 +10,15 @@ import (
 	"fmt"
 	"math/rand"
 	"regexp"
+	"strings"
 	"time"
 )
+
+/*part5
+Adapt the function to reflect the pronouns in the captured groups, where necessary. For instance, when the following input is given:
+“I am not sure that you understand the effect your questions are having on me.”
+the function should return:
+“How do you know that you are not sure that I understand the effect my questions are having on you.”*/
 
 func main() {
 
@@ -71,10 +79,30 @@ func elizaResponse(userInput string) string { //input string of type string
 
 	found := rex.FindStringSubmatch(userInput)
 
-	if len(found) > 1 {
-		responseStrings := "How do you know that you are %s?"
-
-		return fmt.Sprintf(responseStrings, found[1])
+	reflections := map[string]string{ //to swap certain words or phrases
+		"your":   "my",
+		"you're": "I am",
+		"me":     "you",
+		"you":    "I",
+		"me.":    "you",
 	}
+
+	if len(found) > 1 {
+
+		words := strings.Split(found[1], " ")
+
+		for index := range words {
+			// we want to change the word if it's in the map
+			if _, ok := reflections[words[index]]; ok { // value WAS in the map
+				words[index] = reflections[words[index]] // we want to swap with the value
+			} //small if
+		} //for
+
+		found[1] = strings.Join(words, " ")
+		response := "How do you know that you are %s?"
+		//return strings.Join(words, " ")
+		return fmt.Sprintf(response, found[1])
+	} //if(len)
 	return responseStrings[rand.Intn(len(responseStrings))]
-}
+
+} //elizaResponse
