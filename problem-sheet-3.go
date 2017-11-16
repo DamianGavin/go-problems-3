@@ -48,7 +48,7 @@ func main() {
 	fmt.Println("\nI'm not sure that you understand the effect that your questions are having on me.")
 	fmt.Println(elizaResponse("I am not sure that you understand the effect that your questions are having on me."))
 
-	fmt.Println("\ni am supposed to just take what you're saying at face value?")
+	fmt.Println("\nI am supposed to just take what you're saying at face value?")
 	fmt.Println(elizaResponse("I am supposed to just take what you're saying at face value?"))
 }
 
@@ -60,7 +60,7 @@ var responseStrings = []string{ //hardcoded given responses
 
 func elizaResponse(userInput string) string { //input string of type string
 
-	rex := regexp.MustCompile("(?i)\\bfather\\b") //i=case insensitive,(?i):match remainder of pattern with i
+	rex := regexp.MustCompile(`(?i).*\bfather\b.*`) //i=case insensitive,(?i):match remainder of pattern with i
 
 	if rex.MatchString(userInput) { //if exists
 		return "Why don't you tell me some more about your Father?"
@@ -75,7 +75,7 @@ func elizaResponse(userInput string) string { //input string of type string
 	//.*matches any character except full stops.
 	//g modifier: all matches ie. not just 1st match
 
-	rex = regexp.MustCompile(`(?i)i(?:'|\sa)?m (.*)`) //i=case insensitive,(?i):match remainder of pattern with i
+	rex = regexp.MustCompile(`(?i)I am ([^.?!]*)[.?!]?`) //i=case insensitive,(?i):match remainder of pattern with i
 
 	found := rex.FindStringSubmatch(userInput)
 
@@ -84,7 +84,7 @@ func elizaResponse(userInput string) string { //input string of type string
 		"you're": "I am",
 		"me":     "you",
 		"you":    "I",
-		"me.":    "you",
+		//"me.":    "you",
 	}
 
 	if len(found) > 1 {
